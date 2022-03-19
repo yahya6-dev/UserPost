@@ -14,7 +14,7 @@ class Config:
 	MAIL_USE_TLS = True
 	SQLALCHEMY_RECORD_QUERIES = True
 	SECRET_KEY = uuid.uuid4().hex
-	SQLALCHEMY_TRACK_MODIFICSTIONS = False
+	SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 	@staticmethod
@@ -27,9 +27,9 @@ class Config:
 ##including set application logger
 class DevelopmentConfig(Config):
 	SQLALCHEMY_DATABASE_URIv= os.getenv("DEV_DATABASE") or "sqlite:///"+os.path.join(basedir,"dev_database.sqlite")
-
+	DEBUG = True
 	@staticmethod
-	def init_app():
+	def init_app(app):
 		import logging
 		from logging import StreamHandler
 		handler = StreamHandler()
@@ -41,13 +41,13 @@ class DevelopmentConfig(Config):
 ##main config for running 
 #no logger is needed here
 class TestingConfig(Config):
-	SQLALCHEMY_DATABASE_URI = os.env.get("TEST_DEV") or "sqlite:///"+ os.path.join(basedir,"test_database.sqlite")
+	SQLALCHEMY_DATABASE_URI = os.environ.get("TEST_DEV") or "sqlite:///"+ os.path.join(basedir,"test_database.sqlite")
 	WTF_CSRF_ENABLED = False
-
+	TESTING = True
 
 #all config
 config = {
-		"developement":DevelopementConfig,
+		"development":DevelopmentConfig,
 		"testing":TestingConfig
 
 	}
