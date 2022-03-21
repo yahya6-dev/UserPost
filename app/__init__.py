@@ -21,6 +21,10 @@ def create_app(config_name):
 	app = Flask(__name__)
 	app.config.from_object(config[config_name])
 
+	##attach blueprint here
+	from .auth import auth
+	app.register_blueprint(auth)
+
 	config[config_name].init_app(app)
 
 	mail.init_app(app)

@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+	<head>
+		{%block heads%}
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+		{%endblock%}
+
+		{%block styles%}
+			{{bootstrap.load_css()}}
+
+		{%endblock%}
+	</head>
+
+	<body>
+		<nav class="navbar navbar-exapand-md navbar-light text-dark fixed-top">
+			<div class="container">
+				<button type="button" data-bs-toggle="navbar-toggler" data-bs-target="#navbarSection">
+					<span class="navbar-toggler-icon"></span>
+				</dbutton>
+				<a href="#" class="navbar-brand">User Post</a>
+				
+				<div class="collapse navbar-collapse" id="navbarSection">
+					<ul class="navbar-nav">
+						<li class="navbar-item">
+							{{post_form.hidden__tag()}}
+							<fieldset>
+								<legend>Enter Your Detail</legend>	
+							{{post_form.title(class="text-start text-primary fw-bold",placeholder="Title of your post")}}
+							{{post_form(id="post_content",rows="4",placeholder="Enter your post")}}
+							{{post_form(id="sumbit",class="btn btn-primary btn-block")}}
+							</fieldset>
+									
+						</li>
+						<li class="navbar-item">
+						  {% if current_user.is_anonymous%}
+
+
+							<a class="btn btn-primary nav-link" href="{{url_for('auth.login')}}">Login</a>
+						  {%endif%}
+							
+
+						</li>
+						<li class="nav-item">
+							{%if current_user.is_authenticated%}
+							 <a class="btn btn-primary btn-lg nav-link"href="{{url_for('auth.logout')}}">Logout</a>
+							{%endif%}
+
+						</li>
+					
+					</ul>
+
+				</div>
+			</div>
+
+		</nav>
+
+		{%block content%}
+
+		{%endblock%}
+
+		{%block scripts%}
+
+			{{bootstrap.load_js()}}
+			{{moment.include_moment()}}
+			{{pagedown.include_pagedown()}}
+		{%endblock%}
+
+	</body>
+
+
+</html>
