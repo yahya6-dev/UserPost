@@ -1,0 +1,25 @@
+{%extends "base.html"%}
+
+{%block navbar%}
+{%endblock%}
+{%block contents%}
+	
+	
+	{%include "_alert.html"%}
+	<p class="mt-5 mb-5"> &nbsp;</p>
+        
+	<form class="mt-5" method="post">
+		
+	 {{form.csrf_token()}}
+	<fieldset class="mx-auto">
+		<legend class="text-center text-primary fs-3 fw-bold">Enter Your Detail Below</legend>
+	  {{form.username(placeholder="username",class="form-control mx-auto w-75 rounded-pill")}}
+	  <div class="d-grid mt-3 me-1 ms-1">
+		{{form.confirm(class="btn btn-primary text-center d-block rounded-pill")}}
+
+	  </div>
+
+
+	</fieldset>
+	</form>
+{%endblock%}

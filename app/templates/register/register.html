@@ -1,0 +1,48 @@
+{%extends "base.html"%}
+
+{%block navbar%}
+
+{%endblock%}
+{%block contents%}
+	<div class="mb-4 mt-2 fs-3 fw-bold mx-auto text-center text-primary ">Enter Your Details To Register</div>
+	<form method="post" class="mt-3 was-validated me-3 ms-3 mx-auto">
+		<fieldset>
+			
+			{{form.hidden_tag()}}
+			<div class="form-floating mb-2">
+				{{form.username(placeholder="Choose Username",class="mx-auto form-control rounded-pill",id="username")}}			
+				<label for="username" class="form-label">
+					Choose Username
+				</label>
+				<div class="ms-2 invalid-feedback text-danger">Username is required</div>
+			</div>
+			<div class="form-floating mb-2">
+				{{form.password1(placeholder="Choose Password",id="password1",class="rounded-pill mx-auto form-control")}}
+				<label for="password" class="form-label">
+					Choose Password
+				</label>
+			</div>
+			<div class="form-floating mb-2">
+				{{form.password2(placeholder="Confirm Password",id="password2",class="rounded-pill mx-auto form-control")}}
+				<label for="password2" class="form-label">
+					Confirm Password
+				</label>
+			</div>
+			<div class="form-floating mb-2">
+				{{form.email(type="email",placeholder="Choose Email",id="email",class="rounded-pill mx-auto form-control")}}				
+				<label for="email" class="form-label">
+					Choose Email
+				</label>
+			</div>
+
+			<div class="form-select mb-2">
+				{{form.location(class="rounded-pill")}}
+
+			</div>
+			<div class="d-grid">
+				{{form.register(class="btn btn-primary btn-block")}}
+			</div>
+		</fieldset>		
+	</form>
+
+{%endblock%}

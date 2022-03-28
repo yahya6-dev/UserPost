@@ -1,11 +1,12 @@
 from app import create_app,db
+from app.models import User
 from flask_migrate import Migrate
 import os,sys
 import click
 import coverage
 
-app =  create_app(os.getenv("DEFAULT") or "development")
-
+app =  create_app( "development")
+migrate = Migrate(app,db)
 
 cov = None
 
@@ -16,7 +17,7 @@ if os.getenv("RUN_TEST_COVERAGE"):
 #make certain variable in the flask shell
 @app.shell_context_processor
 def shell__context():
-	return dict(db=db)
+	return dict(db=db,User=User)
 
 #run test under test coverage
 #restart if RUN_TEST_COVERAGE not defined

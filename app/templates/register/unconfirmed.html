@@ -1,0 +1,18 @@
+{%extends "base.html"%}
+
+
+{%block navbar%}
+
+
+{%endblock%}
+
+{%block contents%}
+	<div class="container w-100 text-center me-2 mb-2 mt-5 ms-2">
+		<h3> Unconfirmed Account</h3>
+		An email has been sent to your account please verify
+		registered email address is {{user.email}}	
+		
+		<a class="btn btn-outline-danger" href="{{url_for('auth.resend',user=user)}}">Resend new confirmation mail</a>
+	</div>
+
+{%endblock%}

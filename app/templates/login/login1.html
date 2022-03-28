@@ -1,0 +1,24 @@
+{%extends "base.html"%}
+
+
+{%block navbar%}
+
+{%endblock%}
+{%block contents%}
+	{%include "_alert.html"%}
+	<p class="mt-5 mb-5">&nbsp;</p>
+	<form method="post" class="mx-auto">
+	<fieldset class="mt-5">
+		{{form.hidden_tag()}}
+		<legend class="fs-3 fw-bold text-center text-primary">Enter Your Password</legend>
+		<img src="{{user.gravatar(size=300)}}" class="mx-auto d-block img-thumbnail">
+		<br>
+
+		{{form.password(class="form-control rounded-pill  mx-auto w-75 ",placeholder="Enter Your Password")}}
+		
+		<div class="d-grid mt-3 me-1 ms-1">
+			{{form.login(class="btn  rounded-pill btn-primary d-block ")}}
+		</div>
+	</fieldset>
+	</form>
+{%endblock%}

@@ -1,0 +1,23 @@
+{%extends "base.html"%}
+
+
+{%block navbar%}
+
+{%endblock%}
+
+{%block contents%}
+	<div class="container">
+		<div class="text-white  border-bottom text-center fs-3 fw-bold bg-primary">
+			Registration Confirmation Mail
+
+		</div>
+		<h4> This is your confirmation mail sent to
+		to you to verify your account registation
+		if this is was'nt you just ignore it
+		else click above button to activate your 
+		account</h4>
+		<a class="btn btn-primary" href="{{url_for('auth.confirm',token=user.generate_confirm_token())}}">Confirm here</a>
+
+	</div>
+
+{%endblock%}

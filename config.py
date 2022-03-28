@@ -26,7 +26,7 @@ class Config:
 ##and speciliaze it with custom fields
 ##including set application logger
 class DevelopmentConfig(Config):
-	SQLALCHEMY_DATABASE_URIv= os.getenv("DEV_DATABASE") or "sqlite:///"+os.path.join(basedir,"dev_database.sqlite")
+	SQLALCHEMY_DATABASE_URI= os.getenv("DEV_DATABASE") or "sqlite:///"+os.path.join(basedir,"dev_database.sqlite")
 	DEBUG = True
 	@staticmethod
 	def init_app(app):

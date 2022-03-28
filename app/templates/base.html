@@ -14,6 +14,7 @@
 	</head>
 
 	<body>
+		{%block navbar%}
 		<nav class="navbar navbar-exapand-md navbar-light text-dark fixed-top">
 			<div class="container">
 				<button type="button" data-bs-toggle="navbar-toggler" data-bs-target="#navbarSection">
@@ -55,8 +56,8 @@
 			</div>
 
 		</nav>
-
-		{%block content%}
+		{%endblock%}
+		{%block contents%}
 
 		{%endblock%}
 

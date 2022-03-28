@@ -25,6 +25,8 @@ def create_app(config_name):
 	from .auth import auth
 	app.register_blueprint(auth)
 
+	from .main import main	
+	app.register_blueprint(main)
 	config[config_name].init_app(app)
 
 	mail.init_app(app)
