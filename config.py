@@ -41,7 +41,7 @@ class DevelopmentConfig(Config):
 ##main config for running 
 #no logger is needed here
 class TestingConfig(Config):
-	SQLALCHEMY_DATABASE_URI = os.environ.get("TEST_DEV") or "sqlite:///"+ os.path.join(basedir,"test_database.sqlite")
+	SQLALCHEMY_DATABASE_URI = os.environ.get("TEST_DEV") or "sqlite://"
 	WTF_CSRF_ENABLED = False
 	TESTING = True
 

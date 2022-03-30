@@ -1,1 +1,21 @@
 {%extends "base.html"%}
+
+
+{%block contents%}
+	<p class="mb-5">&nbsp;</p>
+	<div class="container text-center text-primary rounded-pill fs-2 lead  mx-auto mb-5 mt-5 border border-bottom-3">	
+		Recent Posts
+	</div>
+	{%include "_post.html"%}
+
+	<ul class="pagination justify-content-center">
+		<li class="pagination-item">
+			<a class="btn btn-primary text-white rounded-pill" href="#">previous</a>
+		</li>
+		<li class="pagination-item">
+		
+			<a class="btn btn-primary ms-2 text-white rounded-pill" href="#">next</a>
+		</li>
+
+	</ul>
+{%endblock%}

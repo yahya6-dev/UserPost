@@ -15,37 +15,38 @@
 
 	<body>
 		{%block navbar%}
-		<nav class="navbar navbar-exapand-md navbar-light text-dark fixed-top">
+		<nav class="navbar  navbar-light  text-primary  bg-white fixed-top">
 			<div class="container">
-				<button type="button" data-bs-toggle="navbar-toggler" data-bs-target="#navbarSection">
+				<button type="button" class="navbar-toggler" data-bs-toggle="collapse"data-bs-target="#navbarSection">
 					<span class="navbar-toggler-icon"></span>
-				</dbutton>
-				<a href="#" class="navbar-brand">User Post</a>
+				</button>
+				<a href="#" class="navbar-brand text-primary ">Random Post<img src="{{url_for('static',filename='logo.png')}}" style="width:50px"></a>
 				
 				<div class="collapse navbar-collapse" id="navbarSection">
 					<ul class="navbar-nav">
 						<li class="navbar-item">
-							{{post_form.hidden__tag()}}
+							<form method="post" class="border border-3 mb-2  mt-2 mx-auto">
+							{{post_form.hidden_tag()}}
 							<fieldset>
-								<legend>Enter Your Detail</legend>	
-							{{post_form.title(class="text-start text-primary fw-bold",placeholder="Title of your post")}}
-							{{post_form(id="post_content",rows="4",placeholder="Enter your post")}}
-							{{post_form(id="sumbit",class="btn btn-primary btn-block")}}
+								<legend class="text-primary mt-1 lead  ms-1">Enter Your Post</legend>	
+							{{post_form.title(class="text-start mb-2   rounded-pill",placeholder="Title of your post")}}
+							{{post_form.post_body(rows="6",cols="21",placeholder="Enter your post")}}
+							{{post_form.submit(id="sumbit",class="btn mt-2 mb-1 btn-primary text-white btn-block rounded-pill")}}
 							</fieldset>
-									
+													</form>	
 						</li>
 						<li class="navbar-item">
 						  {% if current_user.is_anonymous%}
 
 
-							<a class="btn btn-primary nav-link" href="{{url_for('auth.login')}}">Login</a>
-						  {%endif%}
-							
+							<a class="btn  nav-link btn-primary text-white" href="{{url_for('auth.login')}}">Login</a>
+
+							{%endif%}			
 
 						</li>
 						<li class="nav-item">
 							{%if current_user.is_authenticated%}
-							 <a class="btn btn-primary btn-lg nav-link"href="{{url_for('auth.logout')}}">Logout</a>
+							 <a class="btn text-white btn-lg  btn-primary nav-link"href="{{url_for('auth.logout')}}">Logout</a>
 							{%endif%}
 
 						</li>
