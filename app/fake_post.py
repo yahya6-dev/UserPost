@@ -1,6 +1,6 @@
 from faker import Faker
 from sqlalchemy.exc import IntegrityError
-from .models import User,Post,db
+from .models import User,Post,db,Comment
 from random import randint
 
 #create unrealistic users
@@ -22,8 +22,23 @@ def create_posts(count):
 	faker = Faker()
 	for i in range(count):
 		user = User.query.offset(randint(i,count-1)).first()
-		post  = Post(post_body=faker.text(),author=user,timestamp=faker.past_datetime(),title=faker.sentence())
+		post  = Post(post_body="".join(faker.texts()),author=user,timestamp=faker.past_datetime(),title=faker.sentence())
 		db.session.add(post)
 		db.session.commit()
 
+
+#create random comment
+def  create_comment(count):
+	faker = Faker()
+	total_users = User.query.count()
+	total_posts = Post.query.count()
+	for i in range(count):
+		user = User.query.offset(randint(1,total_users)).first()
+		post = Post.query.offset(randint(1,total_posts)).first()
+
+		comment = Comment(comment_text=faker.text(),author=user,post=post)
+		db.session.add(comment)
+		db.session.commit()
+
+	print("done")
 

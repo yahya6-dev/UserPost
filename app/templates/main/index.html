@@ -1,21 +1,39 @@
 {%extends "base.html"%}
 
+{%block navbar%}
+	{{super()}}
 
+	
+{%endblock%}
 {%block contents%}
+	{%include "_alert.html"%}	
 	<p class="mb-5">&nbsp;</p>
-	<div class="container text-center text-primary rounded-pill fs-2 lead  mx-auto mb-5 mt-5 border border-bottom-3">	
+	<div class="container   text-center text-primary rounded-pill fs-2 lead  mx-auto mb-5 mt-5 border border-bottom-3 title">	
 		Recent Posts
 	</div>
 	{%include "_post.html"%}
+	
 
-	<ul class="pagination justify-content-center">
+
+	<ul class="pagination justify-content-center border-top-3 mt-2">
 		<li class="pagination-item">
-			<a class="btn btn-primary text-white rounded-pill" href="#">previous</a>
+			{%if paginations.has_prev%}
+
+			<a class="btn btn-primary text-white rounded-pill" href="{{url_for('main.index',page=paginations.page-1)}}">previous</a>
+			{%else%}
+
+			<a href="#" class="btn btn-primary disabled text-white rounded-pill">previous</a>
+			{%endif%}
 		</li>
 		<li class="pagination-item">
-		
-			<a class="btn btn-primary ms-2 text-white rounded-pill" href="#">next</a>
+			{%if paginations.has_next%}
+			<a class="btn btn-primary ms-2 text-white rounded-pill" href="{{url_for('main.index',page=paginations.page+1)}}">next</a>
+
+			{%else%}
+			<a href="#" class="btn btn-primary ms-2 text-white disabled rounded-pill" >next</a>
+			{%endif%}
 		</li>
 
 	</ul>
+	
 {%endblock%}

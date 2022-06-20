@@ -1,5 +1,5 @@
 from . import db,login_manager
-from itsdangerous import TimedJSONWebSignatureSerializer as serializer
+from itsdangerous import TimedSerializer as serializer
 from werkzeug.security import  check_password_hash,generate_password_hash
 from flask import request,current_app as app
 from flask_login import UserMixin,AnonymousUserMixin
@@ -54,6 +54,15 @@ class Role(db.Model):
 
 		db.session.commit()
 
+##comment model to manage user comment on  a post
+class Comment(db.Model):
+	__tablename__="comments"
+	id = db.Column(db.Integer,primary_key=True)
+	comment_text = db.Column(db.Text)
+	user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+	post_id = db.Column(db.Integer,db.ForeignKey("posts.id"))
+	timestamp = db.Column(db.DateTime,default=datetime.utcnow)
+
 ##user post model interspersed with markdown
 ##for text preview and editing
 class Post(db.Model):
@@ -64,10 +73,24 @@ class Post(db.Model):
 	post_html = db.Column(db.Text())
 	timestamp = db.Column(db.DateTime,default=datetime.utcnow)
 	user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+	comments = db.relationship("Comment",backref="post",lazy="dynamic")
+
+	#return content to be displayed in the ui
+	@property
+	def length(self):
+		post_text = self.post_html or self.post_body
+		start =  post_text.find(".")
+		end = post_text.find(".",start+1)
+
+		index = end if end > 0 else start
+		if index == -1:
+			return len(post_text)
+		else:
+			return index
 
 	@staticmethod
 	def on_change_post(target,value,old,initiator):
-		allowed_tags = ["h1","h2","h3","h4","h5","kbd","code","div","img","br","p","video","audio"]
+		allowed_tags = ["h1","h2","h3","h4","h5","kbd","code","div","img","br","p","video","audio","a"]
 		target.post_html = bleach.linkify(bleach.clean(markdown(value,output_format="html"),strip=True,tags=allowed_tags))
 
 #bind listener to change post_body to post_html with rich text
@@ -88,6 +111,7 @@ class User(UserMixin,db.Model):
 	email = db.Column(db.String(64),unique=True,nullable=False)
 	role_id = db.Column(db.Integer,db.ForeignKey("roles.id"))
 	posts = db.relationship("Post",backref="author",lazy="dynamic")
+	comments = db.relationship("Comment",backref="author",lazy="dynamic")
 
 	def __init__(self,**kargs):
 		super(User,self).__init__(**kargs)

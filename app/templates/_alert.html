@@ -1,9 +1,4 @@
-{%extends "base.html"%}
 
-{%block navbar%}
-{%endblock%}
-
-{%block contents%}
 	{%for message in get_flashed_messages()%}
 	<div class="alert alert-warning bg-primary mx-2 text-white rounded-pill lead  alert-dismissible">
 		<button type="button" data-bs-dismiss="alert" class="btn-close"></button>
@@ -13,4 +8,4 @@
 	</div>
 
 	{%endfor%}
-{%endblock%}
+

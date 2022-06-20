@@ -15,7 +15,11 @@
 		<br>
 
 		{{form.password(class="form-control rounded-pill  mx-auto w-75 ",placeholder="Enter Your Password")}}
-		
+		<div class="form-switch  mt-2">
+			<label class="form-check-label text-primary" for="remember">
+				{{form.remember(class="ms-1 form-check-input",id="remember")}} Remember me
+			</label>
+		</div>	
 		<div class="d-grid mt-3 me-1 ms-1">
 			{{form.login(class="btn  rounded-pill btn-primary d-block ")}}
 		</div>

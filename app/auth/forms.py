@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField,SubmitField,SelectField,PasswordField
+from wtforms import StringField,SubmitField,SelectField,PasswordField,BooleanField
 from wtforms.validators import DataRequired,Length,Email,EqualTo,ValidationError
 from flask_pagedown.fields import PageDownField
 from ..models import User
@@ -12,6 +12,7 @@ class LoginForm(FlaskForm):
 ##second screen to be displayed to the user after entering valid username
 class LoginFormImg(FlaskForm):
 	password = PasswordField("Password",validators=[DataRequired()])
+	remember = BooleanField("remember")
 	login = SubmitField("Login")
 
 

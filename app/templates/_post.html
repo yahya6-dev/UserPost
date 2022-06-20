@@ -1,34 +1,81 @@
-{%extends "base.html"%}
 
 
-{%block navbar%}
-{%endblock%}
-
-{%block contents%}
 	{%for post in posts%}
-	<div class="card border rounded-3 mb-1">
-		<div class="card-title fs-bold fs-3 text-primary text-center">{{post.title}}</div>
+	<div class="card  me-1 ms-1 rounded-3 mt-2 shadow">
+		<div class="card-title fs-bold fs-3 text-primary text-center title">{{post.title}}</div>
 		<div class="clearfix">
-			<div class="card-text text-primary lead h4 text-start ms-3">{{moment(post.timestamp).format("LLL")}}<br> {{moment(post.timestamp).fromNow(refresh=True)}}</div>
+			<div class="card-text text-primary time  text-start ms-3">{{moment(post.timestamp).format("LLL")}}<br> {{moment(post.timestamp).fromNow(refresh=True)}}</div>
 			<div class="card-text text-end text-primary lead me-3" >By {{post.author.username}}</div>
 		</div>
-		<div class="card-body">
+		
+		<div class="card-body post">
+		
 		{%if post.post_html%}
-			{{post.post_html | safe}}
-		{%else%}
-			{{post.post_body}}
-
-		{%endif%}
-		</div>
-		<div class="card-footer d-flex  mt-3">
-			<div class="me-5">
-				<span class="badge bg-primary text-white me-1">likes </span><img src="{{url_for('static',filename='like.png')}}" style="height:25px;width:25px;">
+			
+			{{post.post_html[:post.length+1] | safe}}
+			<div class="collapse  bg-white" id="b{{post.id}}">
+				{{post.post_html[post.length+1:-5]}}
 			</div>
 			<div>
-				<span class="badge bg-primary text-white me-1">unlikes  </span><img src="{{url_for('static',filename='unlike.png')}}" style="width:25px;height:25px;">
+			<a href="#b{{post.id}}" data-bs-toggle="collapse" class="text-decoration-none bg-white  text-dark fw-light unread" style="font-size:50px;">
+				+
+			</a>
 			</div>
-		</div>
-	</div>
+			
+			
+		{%else%}
+			
+			{{post.post_body[:post.length+1]}}
+			<div class="collapse" id="b{{post.id}}">
+				{{post.post_body[post.length+1:-5]}}
+			</div>
+			<div>
+			<a href="#b{{post.id}}" data-bs-toggle="collapse" class="bg-white text-dark  text-decoration-none text-center fs-3 fw-light unread " style="font-size:50px;">
+				+
 
+			</a>
+			</div>
+		{%endif%}
+		</div>
+		<div class="card-footer bg-white d-flex justify-content-between  mt-3">
+			<div>
+				<span class="badge bg-light text-primary me-1"> </span><img src="{{url_for('static',filename='like.png')}}" style="height:23px;width:25px;">
+			</div>
+			<div>
+				<span class="badge bg-light text-primary me-1">  </span><img src="{{url_for('static',filename='unlike.png')}}" style="width:23px;height:25px;">
+			</div>
+			<div>
+				<a href="#a{{post.id}}"class="text-decoration-none" data-bs-toggle="modal"><span class="badge mb-1 bg-light text-primary">{{post.comments.count()}}&nbsp;</span><img src="{{url_for('static',filename='comment.png')}}"></a>
+				
+				<div class="modal " id="a{{post.id}}">
+					<div class="modal-dialog modal-dialog-scrollable">
+					
+						
+
+
+						<div class="modal-content   border rounded-3">
+							<div class="modal-header">
+									<div class="h3 modal-title title text-primary">Comments</div>
+							
+						
+							   		<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+							</div>
+							
+							<div class="modal-body">
+								<fieldset>
+								{{comment_form.content(class="rounded-3 w-100 me-1 ms-1",placeholder="  Enter Your Comment")}}
+								{{comment_form.submit(class="btn btn-primary rounded-pill")}}
+							</fieldset>
+
+							{%include "_comment.html"%}
+			
+							</div>
+						</div>
+
+					</div>				
+				</div>
+		</div>
+	
+	</div>
+</div>
 	{%endfor%}
-{%endblock%}

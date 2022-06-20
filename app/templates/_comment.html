@@ -1,0 +1,22 @@
+{%for comment in post.comments.all()%}
+	<div class="border rounded-3 mt-1 me-1 ms-1 mb-1 bg-white shadow">
+		<div class="h5 ms-2  fw-light text-primary title">Comment from</div>
+		<div class="text-primary">
+			<div class="clearfix lead">
+				<div class="float-start ms-2 time">
+					{{moment(comment.timestamp).format("LLL")}}<br>
+					{{moment(comment.timestamp).fromNow(refresh=True)}}
+				</div>
+				<div class="float-end me-2">
+					{{comment.author.username}}
+				</div>
+				
+			</div>
+			<div class="me-1 ms-1 mt-2 p-2  text-dark post">
+				{{comment.comment_text}}
+
+			</div>
+		</div>
+
+	</div>
+{%endfor%}

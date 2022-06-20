@@ -28,11 +28,11 @@ def login1(username):
 		abort(404)
 	if form.validate_on_submit():
 		if user.verify(form.password.data):
-			login_user(user,True)
+			login_user(user,form.remember.data)
 			next = request.args.get("next")
 			if not next or  next.startswith("/"):
 				next = url_for("main.index")
-			flash("Succesafully login")
+			flash("Successfully login")
 			return redirect(next)
 
 		else:
@@ -46,7 +46,7 @@ def login1(username):
 @login_required
 def logout():
 	user = current_user._get_current_object()
-	logout_user(user)
+	logout_user()
 	return redirect(url_for("main.index"))
 
 #registration main route
