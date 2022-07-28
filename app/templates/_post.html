@@ -1,14 +1,14 @@
 
 
 	{%for post in posts%}
-	<div class="card  me-1 ms-1 rounded-3 mt-2 shadow">
-		<div class="card-title fs-bold fs-3 text-primary text-center title">{{post.title}}</div>
+	<div class="card  m-2 rounded-3  shadow" id="{{post.id}}">
+		<div class="card-title fs-bold fs-3 text-primary text-center heading">{{post.title}}</div>
 		<div class="clearfix">
-			<div class="card-text text-primary time  text-start ms-3">{{moment(post.timestamp).format("LLL")}}<br> {{moment(post.timestamp).fromNow(refresh=True)}}</div>
-			<div class="card-text text-end text-primary lead me-3" >By {{post.author.username}}</div>
+			<div class="card-text text-primary time  text-start ms-1">{{moment(post.timestamp).format("LLL")}}<br> {{moment(post.timestamp).fromNow(refresh=True)}}</div>
+			<div class="card-text text-end text-primary lead me-1" >By {{post.author.username}}</div>
 		</div>
 		
-		<div class="card-body post">
+		<div class="card-body copy">
 		
 		{%if post.post_html%}
 			

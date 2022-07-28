@@ -8,30 +8,43 @@
 		{%endblock%}
 
 		{%block styles%}
-			<link rel="stylesheet" href="{{url_for('static',filename='dist/css/bootstrap.min.css')}}">
-			<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
-			<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+			<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='dist/css/bootstrap.min.css')}}">
+			<script src="{{url_for('static',filename='dist/js/bootstrap.bundle.min.js')}}"></script>
 			<style>
 				
-				.unread{
-					opacity:0.5;
-					
+				sub{
+					font-size:32px;
 
 				}
-				
-				.post{
-					font-family:"Trirong"
-				}
-				.title{
-					font-family:"Sofia"
-
-				}
-				.time{
-
-					font-family:"Sofia";
+				copy{
 					font-size:18px;
 				}
+				.heading{
+					font-size:32;
+					font-style:sans-serif;
+				}
+				.heading.main{
 
+					font-weight:bold;
+				}
+				
+			
+				img[id="logo"]{
+					color:rgba(0,254,0,0.8);	
+
+				}
+				nav,form{
+					margin:8px;
+
+				}	
+				button[btn*="text-white"],a[btn*="text-white"]{
+					width:60px;
+					height:60px;
+					font-size:32px;
+					font-weight:bold;
+				}				
+
+				
 			</style>
 		{%endblock%}
 	</head>
@@ -43,19 +56,19 @@
 				<button type="button" class="navbar-toggler" data-bs-toggle="collapse"data-bs-target="#navbarSection">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-				<a href="#" class="navbar-brand text-primary title">Random Post<img src="{{url_for('static',filename='logo.png')}}" style="width:50px"></a>
+				<a href="#" class="navbar-brand text-primary title">Random Post<img id="logo"src="{{url_for('static',filename='logo.png')}}" style="width:50px"></a>
 				
 				<div class="collapse navbar-collapse" id="navbarSection">
 					<ul class="navbar-nav">
 						{%if current_user.is_authenticated%}
 						<li class="navbar-item">
-							<form method="post" class="border border-3 mb-2  mt-2 mx-auto">
+							<form method="post" class="shadow-lg m-2 bg-white">
 							{{post_form.hidden_tag()}}
 							<fieldset>
-								<legend class="text-primary mt-1 lead  ms-2 title">Enter Your Post</legend>	
-							{{post_form.title(class="text-start mb-2   form-control w-75 ms-2 rounded-pill",placeholder="Title of your post")}}
-							{{post_form.post_body(rows="6",class="w-75 rounded-3 me-2 mt-2 mb-2 form-control ms-2",placeholder="Enter your post")}}
-							{{post_form.submit(id="sumbit",class="btn ms-2 mt-2 mb-1 btn-primary text-white btn-block rounded-pill")}}
+								<legend class="text-dark m-1 lead  heading title">Enter Your Post</legend>	
+							{{post_form.title(class="text-start mb-2   form-control w-75 m-1 rounded-3",placeholder="Title of your post")}}
+							{{post_form.post_body(rows="6",class="w-75 rounded-1 m-1 p-2   form-control ",placeholder="Enter your post")}}
+							{{post_form.submit(id="sumbit",class="btn m-1 p-2 btn-primary text-white fw-bold  btn-block rounded-pill")}}
 							</fieldset>
 													</form>	
 						</li>
@@ -64,14 +77,14 @@
 						  {% if current_user.is_anonymous%}
 
 
-							<a class="btn  nav-link rounded-pill btn-primary text-white" href="{{url_for('auth.login')}}">Login</a>
+							<a class="btn  btn-primary nav-link shadow rounded-pill btn-primary me-1 mt-4  p-3 text-white" href="{{url_for('auth.login')}}">Login</a>
 
 							{%endif%}			
 
 						</li>
 						<li class="nav-item">
 							{%if current_user.is_authenticated%}
-							 <a class="btn text-white btn-lg rounded-pill  btn-primary nav-link"href="{{url_for('auth.logout')}}">Logout</a>
+							 <a class="btn text-white btn-lg rounded-pill me-1 mt-4  btn-primary nav-link"href="{{url_for('auth.logout')}}">Logout</a>
 							{%endif%}
 
 						</li>
@@ -90,7 +103,6 @@
 
 		{%block scripts%}
 
-			<script src="{{url_for('static',filename='dist/js/bootstrap.bundle.min.js')}}"></script>
 			{{moment.include_moment()}}
 			{{pagedown.include_pagedown()}}
 		{%endblock%}
